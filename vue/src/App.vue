@@ -1,3 +1,12 @@
-<template></template>
+<template>
+    <Main></Main>
+</template>
 
-<script></script>
+<script>
+import Main from "./components/main.vue";
+export default {
+	components: {
+		Main,
+	},
+};
+</script>
