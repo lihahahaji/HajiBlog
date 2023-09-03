@@ -1,0 +1,23 @@
+package haji.server.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import haji.server.controller.ArticleController;
+import haji.server.dao.ArticleDao;
+import haji.server.pojo.ArticlePojo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ArticleService {
+
+    @Autowired
+    ArticleDao articleDao;
+
+    public List<ArticlePojo> selectAll()
+    {
+        return articleDao.selectList(new QueryWrapper<>());
+    }
+
+}
