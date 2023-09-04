@@ -7,42 +7,17 @@
 				:collapse="isCollapse"
 				@open="handleOpen"
 				@close="handleClose"
+				@select="handleSelect"
 			>
-				<el-sub-menu index="1">
-					<template #title>
-						<el-icon><location /></el-icon>
-						<span>Navigator One</span>
-					</template>
 
-					<el-menu-item-group>
-						<template #title><span>Group One</span></template>
-						<el-menu-item index="1-1">item one</el-menu-item>
-						<el-menu-item index="1-2">item two</el-menu-item>
-					</el-menu-item-group>
 
-					<el-menu-item-group title="Group Two">
-						<el-menu-item index="1-3">item three</el-menu-item>
-					</el-menu-item-group>
-
-					<el-sub-menu index="1-4">
-						<template #title><span>item four</span></template>
-						<el-menu-item index="1-4-1">item one</el-menu-item>
-					</el-sub-menu>
-				</el-sub-menu>
-
-				<el-menu-item index="2">
-					<el-icon><icon-menu /></el-icon>
-					<template #title>Navigator Two</template>
+				<el-menu-item v-for="(item, index) in dataList" :index=index>
+					<template #title>{{item.articleTitle}}</template>
 				</el-menu-item>
-				<el-menu-item index="3" disabled>
-					<el-icon><document /></el-icon>
-					<template #title>Navigator Three</template>
-				</el-menu-item>
-				<el-menu-item index="4">
-					<el-icon><setting /></el-icon>
-					<template #title>Navigator Four</template>
-				</el-menu-item>
+
+				
 			</el-menu>
+
 		</div>
 
 		<div id="mainContainer">
@@ -56,6 +31,7 @@
 			>
 			</v-md-editor>
 		</div>
+
 	</div>
 </template>
 
@@ -66,9 +42,10 @@ export default {
 	data() {
 		return {
 			isCollapse: false,
-			markdownText:localStorage.getItem("text"),
+			markdownText:"null",
 			ListLength:null,
 			dataList:[],
+			
 		};
 	},
 	methods: {
@@ -82,7 +59,7 @@ export default {
 				console.log(response.data);
 				this.ListLength = response.data.ListLength;
 				this.dataList = response.data.articleList;
-				// this.markdownText = response.data.articleList[0].articleContent;
+				this.markdownText = "# Hello world !"
 				// localStorage.setItem("text",response.data.articleList[0].articleContent)
 				// console.log(this.markdownText)
 			})
@@ -90,9 +67,9 @@ export default {
 				console.log(error);
 			});
 		},
-		handleCopyCodeSuccess()
+		handleSelect(index)
 		{
-			console.log("复制成功")
+			this.markdownText = this.dataList[index].articleContent;
 		}
 	},
 	mounted(){
