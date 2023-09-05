@@ -11,8 +11,18 @@
 				</div>
 
 				<div id="headerRight">
-					
-					<el-button type="primary">New</el-button>
+					<el-popover placement="bottom" :width="250" trigger="click">
+						<template #reference>
+							<el-button style="margin-right: 16px" type="primary">
+								New
+							</el-button>
+						</template>
+						<div id="popoverContainer">
+							<el-input v-model="editPwd" placeholder="请输入秘钥" type ="password" style="width: 150px;margin-right:10px;"/>
+							<el-button type="success" @click = "editPermitButton">OK</el-button>
+						</div>
+						
+					</el-popover>
 				</div>
 			</div>
 		</div>
@@ -20,7 +30,7 @@
 		<div id="mainAndSiderContainer">
 			<div id="sideBarContainer">
 				<el-menu
-					default-active="2"
+					default-active="0"
 					class="el-menu-vertical-demo sidebar"
 					:collapse="isCollapse"
 					@open="handleOpen"
@@ -50,6 +60,7 @@
 <script>
 import axios from "axios";
 import { ElMessage } from "element-plus";
+
 export default {
 	components: {
 		axios,
@@ -61,6 +72,7 @@ export default {
 			markdownText: "",
 			ListLength: null,
 			dataList: [],
+			editPwd:"",
 		};
 	},
 	methods: {
@@ -91,10 +103,17 @@ export default {
 				type: "success",
 			});
 		},
+		editPermitButton()
+		{
+			console.log(this.editPwd)
+			
+
+		}
 	},
-	mounted() {
+	mounted(){
 		this.loadData();
 	},
+
 };
 </script>
 
@@ -127,6 +146,14 @@ export default {
 	flex: 1;
 	display: flex;
 	justify-content: space-between;
+}
+
+#popoverContainer
+{
+	height:100%;
+	width:100%;
+	display: flex;
+	justify-content: center;
 }
 
 .headerContainer {

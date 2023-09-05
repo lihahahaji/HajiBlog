@@ -22,8 +22,6 @@ public class ArticleController {
     @RequestMapping(value = "/getArticleList", method = RequestMethod.GET)
     public String getArticleList()
     {
-
-
         List<ArticlePojo> articleList = articleService.selectAll();
         Integer ListLength = articleList.size();
 
