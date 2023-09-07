@@ -18,10 +18,14 @@
 							</el-button>
 						</template>
 						<div id="popoverContainer">
-							<el-input v-model="editPwd" placeholder="请输入秘钥" type ="password" style="width: 150px;margin-right:10px;"/>
-							<el-button type="success" @click = "editPermitButton">OK</el-button>
+							<el-input
+								v-model="editPwd"
+								placeholder="请输入秘钥"
+								type="password"
+								style="width: 150px; margin-right: 10px"
+							/>
+							<el-button type="success" @click="editPermitButton">OK</el-button>
 						</div>
-						
 					</el-popover>
 				</div>
 			</div>
@@ -58,6 +62,7 @@
 </template>
 
 <script>
+
 import axios from "axios";
 import { ElMessage } from "element-plus";
 
@@ -72,7 +77,7 @@ export default {
 			markdownText: "",
 			ListLength: null,
 			dataList: [],
-			editPwd:"",
+			editPwd: "",
 		};
 	},
 	methods: {
@@ -103,17 +108,26 @@ export default {
 				type: "success",
 			});
 		},
-		editPermitButton()
-		{
-			console.log(this.editPwd)
-			
-
-		}
+		editPermitButton() {
+			console.log(this.editPwd);
+			if (this.editPwd == "201031") {
+				ElMessage({
+					message: "Success",
+					type: "success",
+				});
+				this.$router.push('/edit');
+			}
+			else{
+				ElMessage({
+					message: "Wrong Password.",
+					type: "error",
+				});
+			}
+		},
 	},
-	mounted(){
+	mounted() {
 		this.loadData();
 	},
-
 };
 </script>
 
@@ -148,10 +162,9 @@ export default {
 	justify-content: space-between;
 }
 
-#popoverContainer
-{
-	height:100%;
-	width:100%;
+#popoverContainer {
+	height: 100%;
+	width: 100%;
 	display: flex;
 	justify-content: center;
 }

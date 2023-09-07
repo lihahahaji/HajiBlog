@@ -20,4 +20,10 @@ public class ArticleService {
         return articleDao.selectList(new QueryWrapper<>());
     }
 
+    public void insertArticle(String articleTitle,String articleContent)
+    {
+        articleDao.insert(new ArticlePojo(null,articleTitle,articleContent));
+    }
+
+
 }

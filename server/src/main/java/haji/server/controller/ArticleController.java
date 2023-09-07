@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -36,4 +37,16 @@ public class ArticleController {
 
         return res;
     }
+    @RequestMapping(value = "/newBlog", method = RequestMethod.POST)
+    public String addNewBlog(@RequestParam("articleTitle") String articleTitle, @RequestParam("articleContent") String articleContent)
+    {
+        articleService.insertArticle(articleTitle,articleContent);
+
+        Map<String,String>map = new HashMap<>();
+        map.put("code","200");
+        map.put("message","success");
+        return JSONObject.toJSONString(map);
+    }
+
+
 }

@@ -10,3 +10,8 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+server:
+  tomcat:
+    max-http-form-post-size: 100MB #form????
