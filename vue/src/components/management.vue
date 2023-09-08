@@ -11,16 +11,24 @@
 				</div>
 
 				<div id="headerRight">
-                    <el-button style="margin-right: 16px" type="success" @click = "newArticle"> New </el-button>
-					<el-button style="margin-right: 16px" type="danger" @click = "quit"> Quit </el-button>
+					<el-button
+						style="margin-right: 16px"
+						type="success"
+						@click="newArticle"
+					>
+						New
+					</el-button>
+					<el-button style="margin-right: 16px" type="danger" @click="quit">
+						Quit
+					</el-button>
 				</div>
 			</div>
 		</div>
 
 		<div id="mainContainer">
 			<el-table :data="filteredData" style="width: 90%">
-				<el-table-column label="ID" prop="articleId" />
-				<el-table-column label="Title" prop="articleTitle" />
+				<!-- <el-table-column label="ID" prop="articleId" /> -->
+				<el-table-column label="Articles" prop="articleTitle" />
 				<el-table-column align="right">
 					<template #header>
 						<el-input
@@ -30,15 +38,16 @@
 						/>
 					</template>
 					<template #default="scope">
-						<el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+						<el-button size="small" @click="handleEdit(scope.$index)"
 							>Edit</el-button
 						>
-						<el-button
-							size="small"
-							type="danger"
-							@click="handleDelete(scope.$index, scope.row)"
-							>Delete</el-button
-						>
+
+						<el-popconfirm title="Are you sure to delete this?" @confirm = "handleDelete(scope.$index)">
+							<template #reference>
+								<el-button type="danger" size="small">Delete</el-button>
+							</template>
+						</el-popconfirm>
+
 					</template>
 				</el-table-column>
 			</el-table>
@@ -47,12 +56,11 @@
 </template>
 
 <script>
-
 import axios from "axios";
 export default {
-    component:{
-        axios
-    },
+	component: {
+		axios,
+	},
 	data() {
 		return {
 			search: "",
@@ -62,15 +70,15 @@ export default {
 	computed: {
 		filteredData() {
 			return this.tableData.filter(
-				(data) => !this.search || data.name.toLowerCase().includes(this.search.toLowerCase())
-					
+				(data) =>
+					!this.search ||
+					data.articleTitle.toLowerCase().includes(this.search.toLowerCase())
 			);
 		},
 	},
-    methods:{
-        loadData()
-        {
-            axios({
+	methods: {
+		loadData() {
+			axios({
 				url: "http://localhost:8080/getArticleList",
 				method: "get",
 				params: {},
@@ -79,7 +87,7 @@ export default {
 					console.log(response.data);
 					this.ListLength = response.data.ListLength;
 					this.tableData = response.data.articleList;
-                    console.log(this.tableData)
+					console.log(this.tableData);
 					// this.markdownText = this.dataList[0].articleContent;
 					// localStorage.setItem("text",response.data.articleList[0].articleContent)
 					// console.log(this.markdownText)
@@ -87,18 +95,49 @@ export default {
 				.catch((error) => {
 					console.log(error);
 				});
-        },
-        quit()
-        {
-            this.$router.push('/main');
-        },
-        newArticle(){
-            this.$router.push('/edit');
-        }
-    },
-    beforeMount(){
-        this.loadData();
-    }
+		},
+		quit() {
+			this.$router.push("/main");
+		},
+		newArticle() {
+			this.$router.push("/edit");
+			localStorage.setItem("editMode", "new");
+		},
+		handleEdit(index) {
+			console.log(index);
+			console.log(this.tableData[index]);
+			localStorage.setItem("editMode", "update");
+			localStorage.setItem("articleId", this.tableData[index].articleId);
+			localStorage.setItem("articleTitle", this.tableData[index].articleTitle);
+			localStorage.setItem(
+				"articleContent",
+				this.tableData[index].articleContent
+			);
+			this.$router.push("/edit");
+		},
+		handleDelete(index) {
+			console.log(index);
+			console.log(this.tableData[index]);
+
+            axios({
+				url: "http://localhost:8080/deleteBlog",
+				method: "post",
+				params: {
+                    articleId: this.tableData[index].articleId
+                },
+			})
+				.then((response) => {
+                    this.loadData();
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+            
+		},
+	},
+	beforeMount() {
+		this.loadData();
+	},
 };
 </script>
 
@@ -140,7 +179,7 @@ export default {
 	flex-direction: column;
 	flex: 1;
 	/* background-color: #f5f5f5; */
-    justify-content: top;
-    align-items: center;
+	justify-content: top;
+	align-items: center;
 }
 </style>

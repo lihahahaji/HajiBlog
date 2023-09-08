@@ -25,5 +25,17 @@ public class ArticleService {
         articleDao.insert(new ArticlePojo(null,articleTitle,articleContent));
     }
 
+    public void updateArticleById(Integer articleId, String articleTitle,String articleContent)
+    {
+        articleDao.updateById(new ArticlePojo(articleId,articleTitle,articleContent));
+    }
+
+    public void deleteById(Integer articleId)
+    {
+        articleDao.deleteById(articleId);
+    }
+
+
+
 
 }

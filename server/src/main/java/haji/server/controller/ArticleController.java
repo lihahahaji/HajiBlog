@@ -47,6 +47,28 @@ public class ArticleController {
         map.put("message","success");
         return JSONObject.toJSONString(map);
     }
+    @RequestMapping(value = "/editBlog", method = RequestMethod.POST)
+    public String updateBlog(@RequestParam("articleId")Integer articleId,@RequestParam("articleTitle") String articleTitle, @RequestParam("articleContent") String articleContent)
+    {
 
+        articleService.updateArticleById(articleId,articleTitle,articleContent);
+        Map<String,String>map = new HashMap<>();
+        map.put("code","200");
+        map.put("message","success");
+        return JSONObject.toJSONString(map);
+
+    }
+
+    @RequestMapping(value = "/deleteBlog", method = RequestMethod.POST)
+    public String deleteBlog(@RequestParam("articleId")Integer articleId)
+    {
+
+        articleService.deleteById(articleId);
+        Map<String,String>map = new HashMap<>();
+        map.put("code","200");
+        map.put("message","success");
+        return JSONObject.toJSONString(map);
+
+    }
 
 }
