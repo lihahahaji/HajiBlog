@@ -45,14 +45,15 @@ export default {
                 },
 			})
 				.then((response) => {
-					console.log(response.data);w
+					console.log(response.data);
 
 				})
 				.catch((error) => {
 					console.log(error);
 				});
 
-			// this.$router.push("/main");
+			// 跳转到主页
+			this.$router.push("/main");
 		},
 	},
 };
