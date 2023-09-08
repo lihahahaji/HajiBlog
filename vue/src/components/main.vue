@@ -1,5 +1,6 @@
 <template>
 	<div id="container">
+		<el-backtop :right="10" :bottom="10" />
 		<div>
 			<div class="headerContainer">
 				<div id="headerLeft">
@@ -14,7 +15,7 @@
 					<el-popover placement="bottom" :width="250" trigger="click">
 						<template #reference>
 							<el-button style="margin-right: 16px" type="primary">
-								New
+								Manage
 							</el-button>
 						</template>
 						<div id="popoverContainer">
