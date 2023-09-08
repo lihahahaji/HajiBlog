@@ -11,6 +11,7 @@
 				</div>
 
 				<div id="headerRight">
+                    <el-button style="margin-right: 16px" type="success"> New </el-button>
 					<el-button style="margin-right: 16px" type="danger"> Quit </el-button>
 				</div>
 			</div>
@@ -19,7 +20,7 @@
 		<div id="mainContainer">
 			<el-table :data="filteredData" style="width: 90%">
 				<el-table-column label="ID" prop="date" />
-				<el-table-column label="Title" prop="name" />
+				<el-table-column label="Title" prop="address" />
 				<el-table-column align="right">
 					<template #header>
 						<el-input
@@ -82,6 +83,12 @@ export default {
 			);
 		},
 	},
+    methods:{
+        loadData()
+        {
+
+        }
+    }
 };
 </script>
 
@@ -122,7 +129,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	background-color: #f5f5f5;
+	/* background-color: #f5f5f5; */
     justify-content: top;
     align-items: center;
 }
