@@ -11,16 +11,16 @@
 				</div>
 
 				<div id="headerRight">
-                    <el-button style="margin-right: 16px" type="success"> New </el-button>
-					<el-button style="margin-right: 16px" type="danger"> Quit </el-button>
+                    <el-button style="margin-right: 16px" type="success" @click = "newArticle"> New </el-button>
+					<el-button style="margin-right: 16px" type="danger" @click = "quit"> Quit </el-button>
 				</div>
 			</div>
 		</div>
 
 		<div id="mainContainer">
 			<el-table :data="filteredData" style="width: 90%">
-				<el-table-column label="ID" prop="date" />
-				<el-table-column label="Title" prop="address" />
+				<el-table-column label="ID" prop="articleId" />
+				<el-table-column label="Title" prop="articleTitle" />
 				<el-table-column align="right">
 					<template #header>
 						<el-input
@@ -47,32 +47,16 @@
 </template>
 
 <script>
+
+import axios from "axios";
 export default {
+    component:{
+        axios
+    },
 	data() {
 		return {
 			search: "",
-			tableData: [
-				{
-					date: "2016-05-03",
-					name: "Tom",
-					address: "No. 189, Grove St, Los Angeles",
-				},
-				{
-					date: "2016-05-02",
-					name: "John",
-					address: "No. 189, Grove St, Los Angeles",
-				},
-				{
-					date: "2016-05-04",
-					name: "Morgan",
-					address: "No. 189, Grove St, Los Angeles",
-				},
-				{
-					date: "2016-05-01",
-					name: "Jessy",
-					address: "No. 189, Grove St, Los Angeles",
-				},
-			],
+			tableData: [],
 		};
 	},
 	computed: {
@@ -86,8 +70,34 @@ export default {
     methods:{
         loadData()
         {
-
+            axios({
+				url: "http://localhost:8080/getArticleList",
+				method: "get",
+				params: {},
+			})
+				.then((response) => {
+					console.log(response.data);
+					this.ListLength = response.data.ListLength;
+					this.tableData = response.data.articleList;
+                    console.log(this.tableData)
+					// this.markdownText = this.dataList[0].articleContent;
+					// localStorage.setItem("text",response.data.articleList[0].articleContent)
+					// console.log(this.markdownText)
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+        },
+        quit()
+        {
+            this.$router.push('/main');
+        },
+        newArticle(){
+            this.$router.push('/edit');
         }
+    },
+    beforeMount(){
+        this.loadData();
     }
 };
 </script>

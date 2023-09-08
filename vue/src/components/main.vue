@@ -116,7 +116,7 @@ export default {
 					message: "Success",
 					type: "success",
 				});
-				this.$router.push('/edit');
+				this.$router.push('/management');
 			}
 			else{
 				ElMessage({

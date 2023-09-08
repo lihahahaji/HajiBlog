@@ -53,7 +53,7 @@ export default {
 				});
 
 			// 跳转到主页
-			this.$router.push("/main");
+			this.$router.push("/management");
 		},
 	},
 };
