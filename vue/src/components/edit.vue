@@ -40,7 +40,7 @@ export default {
 			if (localStorage.getItem("editMode") == "new") {
 				// 新文章
 				axios({
-					url: "http://localhost:8080/newBlog",
+					url: "http://118.31.47.145:8080/newBlog",
 					method: "post",
 					params: {
 						articleTitle: this.title,
@@ -58,7 +58,7 @@ export default {
 			} else if (localStorage.getItem("editMode") == "update") {
 				// 编辑旧文章
 				axios({
-					url: "http://localhost:8080/editBlog",
+					url: "http://118.31.47.145:8080/editBlog",
 					method: "post",
 					params: {
 						articleId: localStorage.getItem("articleId"),

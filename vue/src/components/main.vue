@@ -84,7 +84,7 @@ export default {
 	methods: {
 		loadData() {
 			axios({
-				url: "http://localhost:8080/getArticleList",
+				url: "http://118.31.47.145:8080/getArticleList",
 				method: "get",
 				params: {},
 			})
