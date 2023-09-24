@@ -15,7 +15,7 @@ import "@kangc/v-md-editor/lib/theme/style/github.css";
 
 import { createApp } from "vue";
 
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import App from "./App.vue";
 import main from "./components/main.vue";
 import edit from "./components/edit.vue";
@@ -25,7 +25,7 @@ import hljs from "highlight.js";
 
 // 1 添加路由配置
 const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes: [
 		{
 			path: "/main",

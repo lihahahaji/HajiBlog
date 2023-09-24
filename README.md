@@ -7,8 +7,12 @@
 
 ![image-20230908222925435](assets/image-20230908222925435.png)
 
+桌面端:
+
+![image-20230924130254104](assets/image-20230924130254104.png)
 
 项目结构
+
 ```
 HajiBlog
 ├─ .DS_Store
